@@ -1,0 +1,105 @@
+body,header,main,footer,div,input,button{ margin: 0; padding: 0; border: none; outline: none;}
+/* body{
+    font:14px/1.5 "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
+} */
+/* h4{
+    font-size: 18px;
+    font-weight: 500;
+} */
+header{
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    background: url(img/footer.png) repeat-x;
+}
+h1{
+    text-align: center;
+    font-weight: 500;
+    color: #F2F2F2;
+}
+.clearfix:before,.clearfix:after{
+    content: "";
+    display: table;
+}
+.clearfix:after{
+    clear: both;
+}
+.wapper{
+    max-width: 1000px;
+    min-height: 500px;
+    padding: 0 60px;
+    background-color: rgba(255,255,255,0.5);
+    margin: 0 auto;
+    position: relative;
+    clear: both;
+}
+main{
+    padding: 50px 0;
+    background: url(img/background.png);
+}
+div.option{
+    width: 100%;
+    height: 50px;
+    padding-top:5px;
+}
+input[type=file]{
+    display: none;
+}
+button{
+    width: 100px;
+    height: 40px;
+    background: #393939;
+    color: #F2F2F2;
+    border-radius: 8px;
+    margin-left: 10px;
+    float: left;
+    cursor: pointer;
+    box-shadow: 1px 1px 5px #FFF inset, -1px -1px 5px #FFF inset;
+}
+button:hover{
+    box-shadow: 1px 1px 3px #FFF inset, -1px -1px 3px #FFF inset;
+}
+button:active{
+    box-shadow: 1px 1px 1px #FFF inset, -1px -1px 1px #FFF inset;
+}
+.boxA,.boxB{
+    width: 450px;
+    height: 400px;
+    float: left;
+    position: relative;
+}
+.boxB{
+    margin-left: 100px;
+}
+#comfirm{
+    width: 70px;
+    left: 525px;
+    top: 200px;
+    margin: 0;
+    position: absolute;
+}
+.editor{
+    width: 410px;
+    height: 310px;
+    outline: none;
+    float: left;
+    background-color: rgba(255,255,255,0.3);
+    padding: 20px;
+    border: 1px rgb(66, 66, 66) solid;
+    border-radius: 10px;
+}
+div#result{
+    width: 100%;
+    float: left;
+}
+i{
+    font-style: normal;
+    background-color: #3D7E9A;
+    color: #FFF;
+}
+
+footer{
+    width: 100%;
+    min-height: 200px;
+    background: url(img/footer.png);
+}
