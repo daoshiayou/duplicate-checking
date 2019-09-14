@@ -1,4 +1,4 @@
-function LCS() {
+define(function () {
     let arrayA, arrayB, lengthArr, LCSString, percentage;
     let strategy = priorA;
     let repeatA = [], repeatB = [];
@@ -23,7 +23,7 @@ function LCS() {
         }
     }
     function calLength() {
-        if (arrayA === undefined || arrayB === undefined) {
+        if (!arrayA || !arrayB) {
             throw new Error('TypeError: arrayA or arrayB is undefined');
         } else if (Math.min(arrayA.length, arrayB.length) < 1) {
             lengthArr = 0;
@@ -48,10 +48,10 @@ function LCS() {
         }
     }
     function calLCS() {
-        if (arrayA === undefined || arrayB === undefined) {
+        if (!arrayA || !arrayB) {
             throw new Error('TypeError: arrayA or arrayB is undefined');
         }
-        if (lengthArr === undefined) {
+        if (!lengthArr) {
             calLength();
         }
         repeatA.splice(0, repeatA.length);
@@ -79,7 +79,7 @@ function LCS() {
         percentage = (LCSString.length / arrayA.length * 100).toFixed(2);
     }
     function getLCSLength() {
-        if (lengthArr === undefined) {
+        if (!lengthArr) {
             calLength();
         }
         return lengthArr[arrayA.length][arrayB.length];
@@ -91,7 +91,7 @@ function LCS() {
         return LCSString;
     }
     function getPercentage() {
-        if (percentage === undefined) {
+        if (!percentage) {
             calLCS();
         }
         return percentage;
@@ -128,4 +128,4 @@ function LCS() {
         changeStrategy: changeStrategy
     }
     return publicAPI;
-}
+});
