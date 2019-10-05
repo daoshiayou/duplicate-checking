@@ -3,6 +3,9 @@ define(function () {
     let strategy = priorA;
     let repeatA = [], repeatB = [];
     function setArrayA(a) {
+        if(arrayA){
+            arrayA.splice(0,arrayA.length);
+        }
         if (typeof (a) === 'string') {
             arrayA = a.split('');
         } else if (a instanceof Array) {
@@ -10,10 +13,13 @@ define(function () {
         } else {
             throw new Error('TypeError: arrayA must be a string or an array');
         }
+        lengthArr = undefined;
+        LCSString=undefined;
     }
-    function getArrayA() { return arrayA; }
-    function getArrayB() { return arrayB; }
     function setArrayB(b) {
+        if(arrayB){
+            arrayB.splice(0,arrayB.length);
+        }
         if (typeof (b) === 'string') {
             arrayB = b.split('');
         } else if (b instanceof Array) {
@@ -21,7 +27,11 @@ define(function () {
         } else {
             throw new Error('TypeError: arrayB must be a string or an array');
         }
+        lengthArr=undefined;
+        LCSString=undefined;
     }
+    function getArrayA() { return arrayA; }
+    function getArrayB() { return arrayB; }
     function calLength() {
         if (!arrayA || !arrayB) {
             throw new Error('TypeError: arrayA or arrayB is undefined');
