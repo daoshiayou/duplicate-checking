@@ -1,5 +1,5 @@
 (function () {
-    require(['./algorithm'], function (LCS) {
+    require(['./LCS_algorithm'], function (LCS) {
         document.getElementById('comfirm').addEventListener('click', function () {
             let a = document.getElementById('textA').innerText.split('');
             let b = document.getElementById('textB').innerText.split('');

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="check.css">
     <title>查重小工具</title>
 </head>
 
@@ -14,7 +14,11 @@
         <h1>查重小工具</h1>
     </header>
     <main>
-        <div class="wapper clearfix">
+        <ul class="clearfix">
+            <li><a href="#">单个文件查重</a></li>
+            <li><a href="#">批量文件查重</a></li>
+        </ul>
+        <div class="wapper clearfix" id="single">
             <div class="boxA">
                 <div class="option">
                     <input type="file" accept=".txt">
@@ -34,9 +38,12 @@
             </div>
             <div id="result"></div>
         </div>
+        <div class="wapper clearfix" id="multiple">
+
+        </div>
     </main>
     <footer></footer>
-    <script src="./require.js" data-main="./main"></script>
+    <script src="./require.js" data-main="./check"></script>
 </body>
 
 </html>
