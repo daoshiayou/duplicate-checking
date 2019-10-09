@@ -1,137 +1,204 @@
-body,header,main,footer,div,input,button{ margin: 0; padding: 0; border: none; outline: none;}
-/* body{
-    font:14px/1.5 "Microsoft Yahei",tahoma,arial,"Hiragino Sans GB";
-} */
-/* h4{
-    font-size: 18px;
-    font-weight: 500;
-} */
-ul,ol{ list-style: none; }
-a{ text-decoration: none; } 
-header{
-    width: 100%;
-    height: 80px;
-    line-height: 80px;
-    background: url(img/footer.png) repeat-x;
-}
-h1{
-    text-align: center;
-    font-weight: 500;
-    color: #F2F2F2;
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
 }
 
-.clearfix:before,.clearfix:after{
-    content: "";
-    display: table;
+ul, ol {
+  list-style: none;
 }
-.clearfix:after{
-    clear: both;
+
+a {
+  text-decoration: none;
 }
-.wapper{
-    max-width: 1000px;
-    min-height: 500px;
-    padding: 0 60px;
-    background-color: rgba(255,255,255,0.5);
+
+.clearfix:before {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+body {
+  background-color: #F0F0F0;
+}
+
+header {
+  position: relative;
+  background-color: #FFF;
+}
+
+header h1 {
+  position: absolute;
+  left: 5px;
+  color: #555;
+}
+
+header ul {
+  margin: 0 auto;
+  height: 50px;
+  line-height: 50px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+header ul li {
+  float: left;
+  margin-right: 20px;
+}
+
+header ul li a {
+  color: #555;
+}
+
+header ul li a:hover {
+  color: #4386F5;
+}
+
+header #user {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  cursor: pointer;
+}
+
+header #user img {
+  width: 40px;
+  border-radius: 50%;
+  border: 7px transparent solid;
+}
+
+header #user img:hover {
+  border: 7px #CCC solid;
+}
+
+main {
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+main div.wapper > div {
+  width: 100%;
+  height: 500px;
+  margin-top: 40px;
+}
+
+main div.wapper > div .option {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+main div.wapper > div .option input[type="file"] {
+  display: none;
+}
+
+main div.wapper > div .option button {
+  width: 100px;
+  height: 30px;
+  border: 1px #C6C6C6 solid;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: #F8F8F8;
+  border: none;
+  margin-right: 20px;
+  color: #000;
+}
+
+main div.wapper > div .editor {
+  width: 95%;
+  height: 450px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  margin: 0 auto;
+  margin-top: 10px;
+  border: 1px #555 solid;
+  overflow: scroll;
+  background-color: #FFF;
+}
+
+main div.wapper > div .editor i {
+  font-style: normal;
+  background-color: #888;
+}
+
+main div.wapper #comfirm {
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 100px;
+  height: 30px;
+  background-color: #4386F5;
+  border: none;
+  color: #FFF;
+  display: block;
+}
+
+main div.wapper #result {
+  margin: 0 auto;
+  width: 95%;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 40px 0 100px 0;
+  text-align: center;
+}
+
+main div.wapper #result h4 {
+  color: #555;
+}
+
+main div.wapper #result h4 span.green {
+  color: green;
+}
+
+main div.wapper #result h4 span.red {
+  color: red;
+}
+
+footer {
+  width: 100%;
+  margin-top: -50px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #FFF;
+  text-align: center;
+  color: #888;
+}
+
+@media screen and (min-width: 1024px) {
+  main div.wapper {
+    width: 80%;
     margin: 0 auto;
-    position: relative;
-    clear: both;
-}
-main{
-    padding: 50px 0;
-    background: url(img/background.png);
-}
-main > ul{
-    width: fit-content;
-    margin: 0 auto;
-}
-main > ul li{
+  }
+  main div.wapper > div {
+    width: 45%;
+    height: 700px;
+    margin-bottom: 30px;
+  }
+  main div.wapper > div.boxA {
     float: left;
-    margin-right: 20px;
-}
-main > ul li a{
-    color: #393939;
-}
-main > ul li a:hover{
-    text-decoration: underline;
-}
-div.option{
-    width: 100%;
-    height: 50px;
-    padding-top:5px;
-}
-input[type=file]{
-    display: none;
-}
-button{
-    width: 100px;
-    height: 40px;
-    background: #393939;
-    color: #F2F2F2;
-    border-radius: 8px;
-    margin-left: 10px;
-    float: left;
-    cursor: pointer;
-    box-shadow: 1px 1px 5px #FFF inset, -1px -1px 5px #FFF inset;
-}
-button:hover{
-    box-shadow: 1px 1px 3px #FFF inset, -1px -1px 3px #FFF inset;
-}
-button:active{
-    box-shadow: 1px 1px 1px #FFF inset, -1px -1px 1px #FFF inset;
-}
-.boxA,.boxB{
-    width: 450px;
-    height: 400px;
-    float: left;
-    position: relative;
-}
-.boxB{
-    margin-left: 100px;
-}
-#comfirm{
-    width: 70px;
-    left: 525px;
-    top: 200px;
-    margin: 0;
+  }
+  main div.wapper > div.boxB {
+    float: right;
+  }
+  main div.wapper > div .editor {
+    height: 650px;
+  }
+  main div.wapper #comfirm {
     position: absolute;
-}
-.editor{
-    width: 410px;
-    height: 310px;
-    outline: none;
+    top: 40%;
+    left: 50%;
+    margin-left: -50px;
+  }
+  main div.wapper #result {
+    width: 95%;
     float: left;
-    background-color: rgba(255,255,255,0.3);
-    padding: 20px;
-    border: 1px rgb(66, 66, 66) solid;
-    border-radius: 10px;
+  }
 }
-div#result{
-    width: 100%;
-    float: left;
-}
-i{
-    font-style: normal;
-    background-color: #3D7E9A;
-    color: #FFF;
-}
-
-footer{
-    width: 100%;
-    min-height: 200px;
-    background: url(img/footer.png);
-}
-
-@media screen and (max-width: 1000px){
-    .boxA,.boxB{
-        width: 100%;
-        float: none;
-    }
-    #single > button{
-        position: unset;
-        margin: 20px 40%;
-    }
-    .boxB{
-        margin-left: 0;
-        margin-top: 100px;
-    }
-}
+/*# sourceMappingURL=check.css.map */

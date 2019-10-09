@@ -16,14 +16,15 @@
             }
             document.getElementById('textA').innerHTML = a.join('');
             document.getElementById('textB').innerHTML = b.join('');
-            document.getElementById('result').innerHTML = `<h4>重复部分为</h4><p>${result}</p><h4>重复率：<span class="number">${LCS.getPercentage()}%</span></h4>`;
+            let string = `<h4>重复部分为</h4><p>${result}</p><h4>重复率：<span class="${LCS.getPercentage() < 30 ? 'green' : 'red'}">${LCS.getPercentage()}%</span></h4>`;
+            document.getElementById('result').innerHTML = string;
             console.log(LCS.getLCSLength());
         });
         let loadFile = document.getElementsByClassName('load');
         for (let i = 0; i < loadFile.length; i++) {
             loadFile[i].addEventListener('click', function () {
                 this.previousElementSibling.click();
-                console.log(fa===this.previousElementSibling||fb===this.previousElementSibling);
+                console.log(fa === this.previousElementSibling || fb === this.previousElementSibling);
             })
         }
         let fa = document.querySelector('.boxA > div.option > input[type=file]');
@@ -35,7 +36,7 @@
             reader.onload = function () {
                 let string = reader.result;
                 document.getElementById('textA').innerHTML = string;
-                fa.value='';
+                fa.value = '';
             }
         }
         fb.onchange = function () {
@@ -45,7 +46,7 @@
             reader.onload = function () {
                 let string = reader.result;
                 document.getElementById('textB').innerHTML = string;
-                fb.value='';
+                fb.value = '';
             }
         }
         let clearButts = document.getElementsByClassName('clear');
