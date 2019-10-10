@@ -1,67 +1,6 @@
-$dark: #555;
-$grey: #888;
-$blue: #4386F5;
-$white: #F0F0F0;
-body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td{ margin: 0; padding: 0;}
-ul,ol{ list-style: none; }
-a{ text-decoration: none; }
-.clearfix{
-    &:before{
-        content: "";
-        display: table;
-    }
-    &:after{
-        content: "";
-        display: table;
-        clear: both;
-    }
-}
-body{
-    background-color: $white;
-}
-header{
-    position: relative;
-    background-color: #FFF;
-    h1{
-        position: absolute;
-        left: 5px;
-        color: $dark;
-    }
-    ul{
-        margin: 0 auto;
-        height: 50px;
-        line-height: 50px;
-        width: fit-content;
-        li{
-            float: left;
-            margin-right: 20px;
-            a{ 
-                color: $dark;
-                &:hover{
-                    color: $blue;
-                }
-            }
-        }
-    }
-    #user{
-        position: absolute;
-        right: 20px;
-        top: 0;
-        cursor: pointer;
-        img{
-            width: 40px;
-            border-radius: 50%;
-            border: 7px transparent solid;
-            &:hover{
-                border: 7px #CCC solid;
-            }
-        }
-    }
-}
+@import "base.scss";
 
 main{
-    width: 100%;
-    padding-bottom: 50px;
     div.wapper{
         >div{
             width: 100%;
@@ -69,18 +8,14 @@ main{
             margin-top: 40px;
             // border: 1px $dark solid;
             .option{
-                width: fit-content;
-                margin: 0 auto;
+                display: flex;
+                justify-content: center;
                 input[type="file"]{ display: none; }
                 button{
                     width: 100px;
                     height: 30px;
-                    border: 1px #C6C6C6 solid;
-                    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
-                    background-color: #F8F8F8;
-                    border: none;
                     margin-right: 20px;
-                    color: #000;
+                    @include greyButton; 
                 }
             }
             .editor{
@@ -91,11 +26,12 @@ main{
                 margin: 0 auto;
                 margin-top: 10px;
                 border: 1px $dark solid;
-                overflow: scroll;
+                overflow: auto;
                 background-color: #FFF;
+                outline: none;
                 i{
                     font-style: normal;
-                    background-color: $grey;
+                    background-color: $highLight; 
                 }
             }
         }
@@ -104,68 +40,49 @@ main{
             margin-top: 30px;
             width: 100px;
             height: 30px;
-            background-color: $blue;
-            border: none;
-            color: #FFF;
+            @include blueButton;
             display: block;
         }
-        #result{
-            margin: 0 auto;
-            width: 95%;
-            height: fit-content;
-            padding: 40px 0 100px 0;
-            text-align: center;
-            h4{
-                color: $dark;
-                span.green{
-                    color: green;
-                }
-                span.red{
-                    color: red;
-                }
+    }
+    #result{
+        margin: 0 auto;
+        width: 95%;
+        height: auto;
+        padding-top: 40px;
+        text-align: center;
+        h4{
+            color: $dark;
+            span.green{
+                color: green;
             }
+            span.red{
+                color: red;
+            }
+        }
+        p{
+            text-align: left;
+            font-size: 0.7rem;
+            margin: 10px 10% 10px 10%;
         }
     }
 }
 
-footer{
-    width: 100%;
-    margin-top: -50px;
-    height: 50px;
-    line-height: 50px;
-    background-color: #FFF;
-    text-align: center;
-    color: $grey;
-}
 
 @media screen and (min-width: 1024px){
     main{
         div.wapper{
             width: 80%;
             margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             >div{
                 width: 45%;
                 height: 700px;
                 margin-bottom: 30px;
-                &.boxA{
-                    float: left;
-                }
-                &.boxB{
-                    float: right;
-                }
                 .editor{
                     height: 650px;
                 }
-            }
-            #comfirm{
-                position: absolute;
-                top: 40%;
-                left: 50%;
-                margin-left: -50px;
-            }
-            #result{
-                width: 95%;
-                float: left;
             }
         }
     }

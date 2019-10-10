@@ -1,0 +1,93 @@
+$dark: #555;
+$grey: #888;
+$blue: #4386F5;
+$white: #F0F0F0;
+$highLight: #FFFF00;
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td{ margin: 0; padding: 0;}
+ul,ol{ list-style: none; }
+a{ text-decoration: none; }
+button{ border: none; outline: none; }
+.clearfix{
+    &:before{
+        content: "";
+        display: table;
+    }
+    &:after{
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+html{ height: 100%;}
+body{
+    height: 100%;
+    background-color: $white;
+}
+.container{ min-height: 100%; }
+header{
+    position: relative;
+    background-color: #FFF;
+    h1{
+        position: absolute;
+        left: 5px;
+        color: $dark;
+    }
+    ul{
+        height: 50px;
+        line-height: 50px;
+        display: flex;
+        justify-content: center;
+        li{
+            float: left;
+            margin-right: 20px;
+            a{ 
+                color: $dark;
+                &:hover{
+                    color: $blue;
+                }
+            }
+        }
+    }
+    #user{
+        position: absolute;
+        right: 20px;
+        top: 0;
+        cursor: pointer;
+        img{
+            width: 40px;
+            border-radius: 50%;
+            border: 7px transparent solid;
+            &:hover{
+                border: 7px #CCC solid;
+            }
+        }
+    }
+}
+main{
+    width: 100%;
+    padding-bottom: 50px;
+}
+footer{
+    width: 100%;
+    margin-top: -50px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #FFF;
+    text-align: center;
+    color: $grey;
+}
+
+@mixin blueButton {
+    background-color: $blue;
+    color: #FFF;
+    cursor: pointer;
+}
+@mixin greyButton {
+    border: 1px #C6C6C6 solid;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.1);
+    background-color: #F8F8F8;
+    color: #000;
+    cursor: pointer;
+
+}

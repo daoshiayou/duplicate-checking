@@ -11,6 +11,11 @@ a {
   text-decoration: none;
 }
 
+button {
+  border: none;
+  outline: none;
+}
+
 .clearfix:before {
   content: "";
   display: table;
@@ -22,8 +27,17 @@ a {
   clear: both;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   background-color: #F0F0F0;
+}
+
+.container {
+  min-height: 100%;
 }
 
 header {
@@ -38,12 +52,14 @@ header h1 {
 }
 
 header ul {
-  margin: 0 auto;
   height: 50px;
   line-height: 50px;
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 header ul li {
@@ -81,6 +97,16 @@ main {
   padding-bottom: 50px;
 }
 
+footer {
+  width: 100%;
+  margin-top: -50px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #FFF;
+  text-align: center;
+  color: #888;
+}
+
 main div.wapper > div {
   width: 100%;
   height: 500px;
@@ -88,10 +114,12 @@ main div.wapper > div {
 }
 
 main div.wapper > div .option {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 main div.wapper > div .option input[type="file"] {
@@ -101,13 +129,13 @@ main div.wapper > div .option input[type="file"] {
 main div.wapper > div .option button {
   width: 100px;
   height: 30px;
+  margin-right: 20px;
   border: 1px #C6C6C6 solid;
   -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
           box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
   background-color: #F8F8F8;
-  border: none;
-  margin-right: 20px;
   color: #000;
+  cursor: pointer;
 }
 
 main div.wapper > div .editor {
@@ -119,13 +147,14 @@ main div.wapper > div .editor {
   margin: 0 auto;
   margin-top: 10px;
   border: 1px #555 solid;
-  overflow: scroll;
+  overflow: auto;
   background-color: #FFF;
+  outline: none;
 }
 
 main div.wapper > div .editor i {
   font-style: normal;
-  background-color: #888;
+  background-color: #FFFF00;
 }
 
 main div.wapper #comfirm {
@@ -134,71 +163,58 @@ main div.wapper #comfirm {
   width: 100px;
   height: 30px;
   background-color: #4386F5;
-  border: none;
   color: #FFF;
+  cursor: pointer;
   display: block;
 }
 
-main div.wapper #result {
+main #result {
   margin: 0 auto;
   width: 95%;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
-  height: fit-content;
-  padding: 40px 0 100px 0;
+  height: auto;
+  padding-top: 40px;
   text-align: center;
 }
 
-main div.wapper #result h4 {
+main #result h4 {
   color: #555;
 }
 
-main div.wapper #result h4 span.green {
+main #result h4 span.green {
   color: green;
 }
 
-main div.wapper #result h4 span.red {
+main #result h4 span.red {
   color: red;
 }
 
-footer {
-  width: 100%;
-  margin-top: -50px;
-  height: 50px;
-  line-height: 50px;
-  background-color: #FFF;
-  text-align: center;
-  color: #888;
+main #result p {
+  text-align: left;
+  font-size: 0.7rem;
+  margin: 10px 10% 10px 10%;
 }
 
 @media screen and (min-width: 1024px) {
   main div.wapper {
     width: 80%;
     margin: 0 auto;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
   main div.wapper > div {
     width: 45%;
     height: 700px;
     margin-bottom: 30px;
   }
-  main div.wapper > div.boxA {
-    float: left;
-  }
-  main div.wapper > div.boxB {
-    float: right;
-  }
   main div.wapper > div .editor {
     height: 650px;
-  }
-  main div.wapper #comfirm {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-    margin-left: -50px;
-  }
-  main div.wapper #result {
-    width: 95%;
-    float: left;
   }
 }
 /*# sourceMappingURL=check.css.map */
