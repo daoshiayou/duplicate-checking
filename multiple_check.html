@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link rel="stylesheet" href="base.css"> -->
+    <link rel="stylesheet" href="multiple_check.css">
+    <title>查重小工具</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>查重小工具</h1>
+            <ul class="clearfix">
+                <li><a href="/check.html">单个文件查重</a></li>
+                <li><a href="/multiple_check.html" style="color: #4386F5;">批量文件查重</a></li>
+            </ul>
+            <div id="user"><img src="img/avatar.jpg"></div>
+        </header>
+        <main class="clearfix">
+            <div class="wapper clearfix">
+                <div class="file-input">
+                    <input type="file" accept=".txt" multiple="multiple">
+                    <button>上传多个文件</button>
+                    <ul id="files"></ul>
+                </div>
+                <div class="main-content">
+                    <div>
+                        <div id="file-content">
+                        </div>
+                    </div>
+                    <div>
+                        <button><a href="#">下载文件</a></button>
+                        <div id="editor">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <p>@ChenJ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019</p>
+    </footer>
+    <script src="./require.js" data-main="./check"></script>
+</body>
+
+</html>

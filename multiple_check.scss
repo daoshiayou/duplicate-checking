@@ -1,0 +1,30 @@
+@import "base.scss";
+
+// $color1: #eccc68;
+// $color2: #ff7f50;
+// $color3: #ff6b81;
+// $color4: #a4b0be;
+// $color5: #57606f;
+// $color6: #ffa502;
+// $color7: #ff6348;
+// $color8: #ff4757;
+// $color9: #747d8c;
+
+main{
+    div.wapper{
+        width: 100%;
+        .file-input{
+            width: 100%;
+            height: 50px;
+            overflow: scroll;
+            input[type="file"]{
+                display: none;
+            }
+            button{
+                width: 30%;
+                height: 30px;
+                @include blueButton;
+            }
+        }
+    }
+}

@@ -1,0 +1,131 @@
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td {
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  border: none;
+  outline: none;
+}
+
+.clearfix:before {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  background-color: #F0F0F0;
+}
+
+.container {
+  min-height: 100%;
+}
+
+header {
+  position: relative;
+  background-color: #FFF;
+}
+
+header h1 {
+  position: absolute;
+  left: 5px;
+  color: #555;
+}
+
+header ul {
+  height: 50px;
+  line-height: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header ul li {
+  float: left;
+  margin-right: 20px;
+}
+
+header ul li a {
+  color: #555;
+}
+
+header ul li a:hover {
+  color: #4386F5;
+}
+
+header #user {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  cursor: pointer;
+}
+
+header #user img {
+  width: 40px;
+  border-radius: 50%;
+  border: 7px transparent solid;
+}
+
+header #user img:hover {
+  border: 7px #CCC solid;
+}
+
+main {
+  width: 100%;
+  padding-bottom: 50px;
+}
+
+footer {
+  width: 100%;
+  margin-top: -50px;
+  height: 50px;
+  line-height: 50px;
+  background-color: #FFF;
+  text-align: center;
+  color: #888;
+}
+
+main div.wapper {
+  width: 100%;
+}
+
+main div.wapper .file-input {
+  width: 100%;
+  height: 50px;
+  overflow: scroll;
+}
+
+main div.wapper .file-input input[type="file"] {
+  display: none;
+}
+
+main div.wapper .file-input button {
+  width: 30%;
+  height: 30px;
+  background-color: #4386F5;
+  color: #FFF;
+  cursor: pointer;
+}
+/*# sourceMappingURL=multiple_check.css.map */
