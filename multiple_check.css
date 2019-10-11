@@ -112,9 +112,18 @@ main div.wapper {
 }
 
 main div.wapper .file-input {
+  margin-top: 20px;
   width: 100%;
-  height: 50px;
-  overflow: scroll;
+  height: 100px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #FFF;
 }
 
 main div.wapper .file-input input[type="file"] {
@@ -127,5 +136,175 @@ main div.wapper .file-input button {
   background-color: #4386F5;
   color: #FFF;
   cursor: pointer;
+  display: block;
+}
+
+main div.wapper .file-input button.hide {
+  display: none;
+}
+
+main div.wapper .file-input button.short-button {
+  width: 7rem;
+}
+
+main div.wapper .file-input ul.files {
+  width: 70%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  overflow: auto;
+}
+
+main div.wapper .file-input ul.files.hide {
+  display: none;
+}
+
+main div.wapper .file-input ul.files li {
+  width: 25px;
+  padding: 5px;
+  font-size: 0.5rem;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+main div.wapper .file-input ul.files li img {
+  width: 25px;
+}
+
+main div.wapper .file-input ul.files li:hover {
+  background-color: rgba(112, 161, 255, 0.2);
+}
+
+main div.wapper .file-input ul.files li.on {
+  background-color: rgba(112, 161, 255, 0.5);
+}
+
+main div.wapper div.main-content {
+  width: 100%;
+  margin: 20px 0 20px 0;
+  position: relative;
+}
+
+main div.wapper div.main-content div.block {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  padding: 0;
+  background-color: rgba(116, 125, 140, 0.5);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-size: 2.5rem;
+  cursor: default;
+}
+
+main div.wapper div.main-content > div {
+  width: 100%;
+  margin: 0 auto;
+  height: 600px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  margin-bottom: 20px;
+  background-color: #FFF;
+}
+
+main div.wapper div.main-content > div > div {
+  height: 520px;
+  border: 1px #555 solid;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  margin-top: 30px;
+  overflow: auto;
+}
+
+main div.wapper div.main-content > div button {
+  border: 1px #C6C6C6 solid;
+  -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+          box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: #F8F8F8;
+  color: #000;
+  cursor: pointer;
+  width: 5rem;
+  height: 1.5rem;
+  float: right;
+}
+
+main div.wapper div.main-content > div button a {
+  color: #555;
+}
+
+main div.wapper div.main-content ul#legends {
+  padding: 10px 0 10px 0;
+  height: 2.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  font-size: 0.5rem;
+  line-height: 0.5rem;
+}
+
+main div.wapper div.main-content ul#legends li {
+  height: 0.75rem;
+}
+
+main div.wapper div.main-content ul#legends .rect {
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-right: 3px;
+  float: left;
+}
+
+@media screen and (min-width: 1024px) {
+  main {
+    min-width: 1024px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  main div.wapper div.main-content {
+    width: 100%;
+  }
+  main div.wapper div.main-content > div {
+    width: 50%;
+    float: left;
+    margin-bottom: 0;
+  }
+}
+
+.color1 {
+  background-color: #eccc68;
+}
+
+.color2 {
+  background-color: #ff7f50;
+}
+
+.color3 {
+  background-color: #ff6b81;
 }
 /*# sourceMappingURL=multiple_check.css.map */

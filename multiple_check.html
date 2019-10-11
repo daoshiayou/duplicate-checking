@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- <link rel="stylesheet" href="base.css"> -->
     <link rel="stylesheet" href="multiple_check.css">
     <title>查重小工具</title>
 </head>
@@ -25,16 +24,27 @@
                 <div class="file-input">
                     <input type="file" accept=".txt" multiple="multiple">
                     <button>上传多个文件</button>
-                    <ul id="files"></ul>
+                    <ul class="files hide" id="files">
+                        <!-- <li class="on"><img src="/img/txt.jpg"> asdadsad1.txt</li>
+                        <li><img src="/img/txt.jpg"> 2.txt</li>
+                        <li><img src="/img/txt.jpg"> 3.txt</li> -->
+                    </ul>
+                    <button class="short-button hide">重新上传文件</button>
                 </div>
-                <div class="main-content">
+                <div class="main-content clearfix">
+                    <div class="block">请上传文件</div>
                     <div>
                         <div id="file-content">
                         </div>
+                        <ul id="legends">
+                            <!-- <li><div class="rect color1"></div>1.txt</li>
+                            <li><div class="rect color2"></div>2.txt</li>
+                            <li><div class="rect color3"></div>3.txt</li> -->
+                        </ul>
                     </div>
                     <div>
                         <button><a href="#">下载文件</a></button>
-                        <div id="editor">
+                        <div id="editor" contenteditable="true">
                         </div>
                     </div>
                 </div>
@@ -44,7 +54,7 @@
     <footer>
         <p>@ChenJ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2019</p>
     </footer>
-    <script src="./require.js" data-main="./check"></script>
+    <!-- <script src="./require.js" data-main="./check"></script> -->
 </body>
 
 </html>
