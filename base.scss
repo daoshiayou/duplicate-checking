@@ -28,9 +28,10 @@ body{
 header{
     position: relative;
     background-color: #FFF;
+    display: flex;
+    justify-content: space-between;
     h1{
-        position: absolute;
-        left: 5px;
+        padding-left: 5px;
         color: $dark;
     }
     ul{
@@ -39,7 +40,6 @@ header{
         display: flex;
         justify-content: center;
         li{
-            float: left;
             margin-right: 20px;
             a{ 
                 color: $dark;
@@ -50,16 +50,14 @@ header{
         }
     }
     #user{
-        position: absolute;
-        right: 20px;
-        top: 0;
+        margin-right: 20px;
         cursor: pointer;
         img{
             width: 40px;
             border-radius: 50%;
-            border: 7px transparent solid;
+            border: 6px transparent solid;
             &:hover{
-                border: 7px #CCC solid;
+                border: 6px #CCC solid;
             }
         }
     }

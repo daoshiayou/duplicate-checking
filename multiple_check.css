@@ -43,11 +43,16 @@ body {
 header {
   position: relative;
   background-color: #FFF;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 header h1 {
-  position: absolute;
-  left: 5px;
+  padding-left: 5px;
   color: #555;
 }
 
@@ -63,7 +68,6 @@ header ul {
 }
 
 header ul li {
-  float: left;
   margin-right: 20px;
 }
 
@@ -76,20 +80,18 @@ header ul li a:hover {
 }
 
 header #user {
-  position: absolute;
-  right: 20px;
-  top: 0;
+  margin-right: 20px;
   cursor: pointer;
 }
 
 header #user img {
   width: 40px;
   border-radius: 50%;
-  border: 7px transparent solid;
+  border: 6px transparent solid;
 }
 
 header #user img:hover {
-  border: 7px #CCC solid;
+  border: 6px #CCC solid;
 }
 
 main {
@@ -167,6 +169,7 @@ main div.wapper .file-input ul.files.hide {
 
 main div.wapper .file-input ul.files li {
   width: 25px;
+  height: 35px;
   padding: 5px;
   font-size: 0.5rem;
   text-align: center;
@@ -199,13 +202,11 @@ main div.wapper div.main-content div.block {
   height: 100%;
   z-index: 999;
   padding: 0;
-  background-color: rgba(116, 125, 140, 0.5);
+  background-color: rgba(128, 128, 128, 0.4);
+  color: #555;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -293,6 +294,11 @@ main div.wapper div.main-content ul#legends .rect {
     width: 50%;
     float: left;
     margin-bottom: 0;
+  }
+  main div.wapper div.main-content div.block {
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
   }
 }
 

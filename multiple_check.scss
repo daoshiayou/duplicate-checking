@@ -1,5 +1,5 @@
 @import "base.scss";
-
+ 
 $color1: #eccc68;
 $color2: #ff7f50;
 $color3: #ff6b81;
@@ -25,7 +25,7 @@ main{
             }
             button{
                 width: 30%;
-                height: 30px;
+                height: 30px; 
                 @include blueButton;
                 display: block;
                 &.hide{
@@ -47,6 +47,7 @@ main{
                 }
                 li{
                     width: 25px;
+                    height: 35px;
                     padding: 5px;;
                     font-size: 0.5rem;
                     text-align: center;
@@ -75,9 +76,9 @@ main{
                 height: 100%;
                 z-index: 999;
                 padding: 0;
-                background-color: rgba(116, 125, 140,0.5);
+                background-color: rgba(128,128,128,0.4);
+                color: $dark;
                 display: flex;
-                align-items: center;
                 justify-content: center;
                 font-size: 2.5rem;
                 cursor: default;
@@ -141,6 +142,9 @@ main{
                     width: 50%;
                     float: left;
                     margin-bottom: 0;
+                }
+                div.block{
+                    align-items: center;
                 }
             }
         }

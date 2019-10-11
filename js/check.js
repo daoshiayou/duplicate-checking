@@ -1,6 +1,8 @@
 (function () {
+    console.time('load');
     require(['./LCS_algorithm'], function (LCS) {
         document.getElementById('comfirm').addEventListener('click', function () {
+            console.time('LCS');
             let a = document.getElementById('textA').innerText.split('');
             let b = document.getElementById('textB').innerText.split('');
             LCS.setArrayA(a);
@@ -18,13 +20,12 @@
             document.getElementById('textB').innerHTML = b.join('');
             let string = `<h4>重复部分为</h4><p>${result}</p><h4>重复率：<span class="${LCS.getPercentage() < 30 ? 'green' : 'red'}">${LCS.getPercentage()}%</span></h4>`;
             document.getElementById('result').innerHTML = string;
-            console.log(LCS.getLCSLength());
+            console.timeEnd('LCS');
         });
         let loadFile = document.getElementsByClassName('load');
         for (let i = 0; i < loadFile.length; i++) {
             loadFile[i].addEventListener('click', function () {
                 this.previousElementSibling.click();
-                console.log(fa === this.previousElementSibling || fb === this.previousElementSibling);
             })
         }
         let fa = document.querySelector('.boxA > div.option > input[type=file]');
@@ -56,4 +57,5 @@
             })
         }
     });
+    console.timeEnd('load');
 })();
