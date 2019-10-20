@@ -3,8 +3,8 @@ define(function () {
     let strategy = priorA;
     let repeatA = [], repeatB = [];
     function setArrayA(a) {
-        if(arrayA){
-            arrayA.splice(0,arrayA.length);
+        if (arrayA) {
+            arrayA.splice(0, arrayA.length);
         }
         if (typeof (a) === 'string') {
             arrayA = a.split('');
@@ -14,11 +14,14 @@ define(function () {
             throw new Error('TypeError: arrayA must be a string or an array');
         }
         lengthArr = undefined;
-        LCSString=undefined;
+        LCSString = undefined;
+        percentage = undefined;
+        repeatA.splice(0, repeatA.length);
+        repeatB.splice(0, repeatB.length);
     }
     function setArrayB(b) {
-        if(arrayB){
-            arrayB.splice(0,arrayB.length);
+        if (arrayB) {
+            arrayB.splice(0, arrayB.length);
         }
         if (typeof (b) === 'string') {
             arrayB = b.split('');
@@ -27,8 +30,11 @@ define(function () {
         } else {
             throw new Error('TypeError: arrayB must be a string or an array');
         }
-        lengthArr=undefined;
-        LCSString=undefined;
+        lengthArr = undefined;
+        LCSString = undefined;
+        percentage = undefined;
+        repeatA.splice(0, repeatA.length);
+        repeatB.splice(0, repeatB.length);
     }
     function getArrayA() { return arrayA; }
     function getArrayB() { return arrayB; }
@@ -64,8 +70,6 @@ define(function () {
         if (!lengthArr) {
             calLength();
         }
-        repeatA.splice(0, repeatA.length);
-        repeatB.splice(0, repeatB.length);
         if (lengthArr === 0) {
             LCSString = '';
             percentage = 0;
@@ -107,9 +111,15 @@ define(function () {
         return percentage;
     }
     function getRepeatA() {
+        if (repeatA.length === 0) {
+            calLCS();
+        }
         return repeatA;
     }
     function getRepeatB() {
+        if (repeatB.length === 0) {
+            calLCS();
+        }
         return repeatB;
     }
     function priorA(indexA, indexB) {

@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+i {
+  font-style: normal;
+}
+
 button {
   border: none;
   outline: none;
@@ -29,6 +33,7 @@ button {
 
 html {
   height: 100%;
+  font: normal 16px arial,Microsoft Yahei;
 }
 
 body {
@@ -300,6 +305,10 @@ main div.wapper div.main-content ul#legends .rect {
         -ms-flex-align: center;
             align-items: center;
   }
+}
+
+.allFiles {
+  background-color: #FFFF00;
 }
 
 .color1 {

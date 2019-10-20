@@ -15,7 +15,7 @@ main{
         .file-input{
             margin-top: 20px;
             width: 100%;
-            height: 100px;
+            height: 100px; 
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -151,6 +151,9 @@ main{
     }
 }
 
+.allFiles{
+    background-color: $highLight;
+}
 .color1{
     background-color: $color1;
 }
