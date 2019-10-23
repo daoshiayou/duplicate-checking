@@ -7,15 +7,51 @@
 define(['LCS_algorithm'], function (LCS) {
     'use strict';
     let files = new Map();
-    // function compare(record,fileKey, fileValue){
-    //     return new Promise((record,fileKey, fileValue)=>{
-    //         LCS.setArrayB(arrayB);
-    //         let repeat = copy(LCS.getRepeatA());
-    //         record.set(fileKey, repeat);
-    //     })
-    // }
 
     function addFile(name, content) {
+        //初始化value
+        let value = {};
+        value.content = content;
+        let record = new Map();
+        value.record = record;
+        value.isValid = true;
+        LCS.setArrayA(content);
+
+        //用于异步等待value记录完成
+        let promise = new Promise(function (resolve, reject) {
+            //存放文件遍历的Promise对象
+            let pArr = [];
+            //遍历文件建立Promise异步执行比较
+            for (let [fileKey, fileValue] of files) {
+                let p = new Promise(function (resolve, reject) {
+                    setTimeout(() => {
+                        //如果该文件无效或者对比文件无效，直接跳过比较
+                        if (!value.isValid || !fileValue.isValid) {
+                            resolve();
+                        }
+                        //开始比较
+                        LCS.setArrayB(fileValue.content);
+                        value.record.set(fileKey, copy(LCS.getRepeatA()));
+                        //如果有高重复文件，将这个文件置为无效
+                        if (LCS.getPercentage() > 30) {
+                            value.isValid = false;
+                        }
+                        //在比较文件中记录重复下标
+                        fileValue.record.set(name, copy(LCS.getRepeatB()));
+                        resolve();
+                    }, 500);
+                });
+                pArr.push(p);
+            }
+            //当所有文件遍历完成后
+            Promise.all(pArr).then(function () {
+                files.set(name, value);
+            });
+        });
+    }
+
+    //addFile
+    function addFile_bak(name, content) {
         let value = firstCompare(name, content);
         files.set(name, value);
     }
@@ -134,7 +170,7 @@ define(['LCS_algorithm'], function (LCS) {
     let publicAPI = {
         addFile: addFile,
         delFile: delFile,
-        compare: compare,
+        // compare: compare,
         markAllContent: markAllContent,
         clearFiles: clearFiles,
         isValid: (name) => files.get(name).isValid

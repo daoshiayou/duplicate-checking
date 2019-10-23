@@ -30,7 +30,7 @@
                 reader.readAsText(files[i], 'gb2312');
                 reader.onload = function () {
                     let string = reader.result;
-
+                    string = string.replace(/\n/g,'<br>');
                     console.time('addFile');
 
                     MF.addFile(reader.name, string);
