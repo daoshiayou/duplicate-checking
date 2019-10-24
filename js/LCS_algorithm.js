@@ -1,3 +1,8 @@
+/**
+ * 用于计算两个字符串的最长公共子序列
+ * @module LCS_algorithm
+ * @returns
+ */
 define(function () {
     let arrayA, arrayB, lengthArr, LCSString, percentage;
     let strategy = priorA;

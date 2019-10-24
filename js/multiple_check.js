@@ -30,12 +30,7 @@
                 reader.readAsText(files[i], 'gb2312');
                 reader.onload = function () {
                     let string = reader.result;
-                    string = string.replace(/\n/g,'<br>');
-                    console.time('addFile');
-
                     MF.addFile(reader.name, string);
-
-                    console.timeEnd('addFile');
                 }
             }
             inputFile.value = '';
@@ -53,12 +48,13 @@
             li.addEventListener('click', function () {
                 //TODO: show detail
                 if (!MF.isValid(this.textContent)) {
-                    MF.compare(this.textContent);
+                    // MF.compare(this.textContent);
                 }
 
                 console.time('markAll');
-                
-                fileContent.innerHTML = MF.markAllContent(this.textContent);
+
+                let string = MF.markAllContent(this.textContent);
+                fileContent.innerHTML = string;
 
                 console.timeEnd('markAll');
             });
@@ -68,9 +64,15 @@
         let downloadBut = document.getElementById('download');
         let editor = document.getElementById('editor');
         downloadBut.addEventListener('click', function () {
-            let text = editor.textContent;
+            let text = editor.innerHTML;
+            text = text.replace(/(<span.*?>|<\/span>)/g,'');
+            text = text.replace(/&nbsp;/g,' ');
+            text = text.replace(/<br>/g,'\r\n');
+            debugger;
             let fileName = prompt('输入保存的文件名：', '各方面都不行的查重工具下载的没用文档');
-            download(fileName, text);
+            if (fileName != null) {
+                download(fileName, text);
+            }
         });
         function download(fileName, text) {
             let ele = document.createElement('a');
