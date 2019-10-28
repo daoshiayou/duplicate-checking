@@ -7,33 +7,27 @@ console.time('files');
 define(['LCS_algorithm'], function (LCS) {
     'use strict';
     let files = new Map();
-    files.lock = false;
     files.length = 0;
 
+    /**
+     * 在存储的files里加入新的比较数据
+     * @method addFile
+     * @param {string} name 
+     * @param {string} content 
+     * @return {Promise} 
+     */
     function addFile(name, content) {
-        console.time('addFile ' + name);
-        document.body.style.cursor = 'wait';
-        if (files.lock) {
-            // setTimeout(() => {
-            //     addFile(name, content);
-            // }, files.length * 1000);
-            let timer = setInterval(() => {
-                window.clearInterval(timer);
-                addFile(name, content);
-            }, files.length * 1000);
-            console.timeEnd('addFile ' + name);
-            return;
-        }
-        files.lock = true;
-        //初始化value
-        let value = {};
-        value.content = content;
-        let record = new Map();
-        value.record = record;
-        value.isValid = true;
+        return new Promise(function (resolve, reject) {
+            console.time('addFile ' + name);
+            document.body.style.cursor = 'wait';
+            //初始化value
+            let value = {};
+            value.content = content;
+            let record = new Map();
+            value.record = record;
+            value.isValid = true;
 
-        //用于异步等待value记录完成
-        let promise = new Promise(function (resolve, reject) {
+            //用于异步等待value记录完成
             LCS.setArrayA(content);
             //存放文件遍历的Promise对象
             let pArr = [];
@@ -42,21 +36,25 @@ define(['LCS_algorithm'], function (LCS) {
                 let p = new Promise(function (resolve, reject) {
                     (function (fileKey, fileValue) {
                         setTimeout(() => {
-                            //如果该文件无效或者对比文件无效，直接跳过比较
-                            if (!value.isValid || !fileValue.isValid) {
-                                resolve();
+                            //该文件有效且对比文件有效才继续比较
+                            if (value.isValid && fileValue.isValid) {
+                                LCS.setArrayB(fileValue.content);
+
+                                //test
+                                console.log(LCS.getLCSString());
+
+                                let repeat = copy(LCS.getRepeatA());
+                                value.record.set(fileKey, repeat);
+
+                                //如果有高重复文件，将这个文件置为无效
+                                if (LCS.getPercentage() > 30) {
+                                    value.isValid = false;
+                                } else {
+                                    //在比较文件中记录重复下标
+                                    repeat = copy(LCS.getRepeatB());
+                                    fileValue.record.set(name, repeat);
+                                }
                             }
-                            //开始比较
-                            LCS.setArrayB(fileValue.content);
-                            let repeat = copy(LCS.getRepeatA());
-                            value.record.set(fileKey, repeat);
-                            //如果有高重复文件，将这个文件置为无效
-                            if (LCS.getPercentage() > 30) {
-                                value.isValid = false;
-                            }
-                            //在比较文件中记录重复下标
-                            repeat = copy(LCS.getRepeatB());
-                            fileValue.record.set(name, repeat);
                             resolve();
                         }, 500);
                     })(fileKey, fileValue);
@@ -70,13 +68,13 @@ define(['LCS_algorithm'], function (LCS) {
                 resolve();
             });
         }).then(function () {
-            files.lock = false;
             console.timeEnd('addFile ' + name);
             console.log(files);
             if (files.length === 20) {
                 console.timeEnd('files');
             }
             document.body.style.cursor = 'default';
+            return name;
         });
     }
 
@@ -99,6 +97,7 @@ define(['LCS_algorithm'], function (LCS) {
             LCS.setArrayB(fileValue.content);
             //记录比较结果
             let repeat = copy(LCS.getRepeatA());
+
             record.set(fileKey, repeat);
             //如果高重复，标记并退出循环
             if (LCS.getPercentage() > 30) {
@@ -158,7 +157,7 @@ define(['LCS_algorithm'], function (LCS) {
      *  @param {string} text 要处理的字符串
      *  @param {Array} array 需要在周围添加标记的字符位置下标
      *  @param {string} iClass 添加的<i>标记类名（用于后续添加样式
-     *  @returns {string} 处理好的带标记的字符串
+     *  @return {string} 处理好的带标记的字符串
      */
     function textProcess(text, array, iClass) {
         let preIndex = array[0];

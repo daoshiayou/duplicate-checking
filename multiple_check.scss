@@ -13,7 +13,7 @@ main{
     div.wapper{
         width: 100%;
         .file-input{
-            margin-top: 20px;
+            margin-top: 40px;
             width: 100%;
             height: 100px; 
             display: flex;
@@ -35,16 +35,32 @@ main{
                     width: 7rem;
                 }
             }
-            ul.files{
+            div.files-div{
                 width: 70%;
+                height: 100%;
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.75rem;
+                position: relative;
+                p{
+                    position: absolute;
+                    top: -1rem;
+                    left: 0;
+                    &:last-of-type{
+                        left: 70%;
+                    }
+                }
+                &.hide{
+                    display: none;
+                }
+            }
+            ul.files,ul.valid-files{
+                width: 68%;
                 height: 100%;
                 display: flex;
                 justify-content: flex-start;
                 flex-wrap: wrap;
                 overflow: auto;
-                &.hide{
-                    display: none;
-                }
                 li{
                     width: 25px;
                     height: 35px;
@@ -64,6 +80,9 @@ main{
                         background-color: rgba(112, 161, 255,0.5);
                     }
                 }
+            }
+            ul.valid-files{
+                width:30%;
             }
         }
         div.main-content{

@@ -13,26 +13,97 @@
             });
         });
         let fileUl = document.querySelector('.files');
+        let fileDiv = document.querySelector('.files-div');
+        let validUl = document.querySelector('.valid-files');
         let fileContent = document.getElementById('file-content');
-        inputFile.onchange = function () {
+        inputFile.onchange = async function () {
             inputButton[0].classList.add('hide');
             inputButton[1].classList.remove('hide');
             let files = this.files;
-            fileUl.innerHTML = '';
-            fileUl.classList.remove('hide');
+            fileDiv.classList.remove('hide');
+
+            //我和我最后的倔强，async的写法
             for (let i = 0; i < files.length; i++) {
-                //show file'name in ul
                 let li = newFileLi(files[i].name);
-                fileUl.appendChild(li);
-                let reader = new FileReader();
-                reader.name = files[i].name;
-                // reader.readAsText(files[i], 'utf-8');
-                reader.readAsText(files[i], 'gb2312');
-                reader.onload = function () {
-                    let string = reader.result;
-                    MF.addFile(reader.name, string);
+                let name = await readFile(files[i]);
+                if (MF.isValid(name)) {
+                    fileUl.appendChild(li);
+                } else {
+                    validUl.appendChild(li);
                 }
             }
+            function readFile(file) {
+                return new Promise(function (resolve, reject) {
+                    let reader = new FileReader();
+                    reader.name = file.name;
+                    reader.readAsText(file, 'utf-8');
+                    reader.onload = () => {
+                        let string = reader.result;
+                        let promise = MF.addFile(reader.name, string);
+                        promise.then(() => {
+                            resolve(reader.name);
+                        });
+                    }
+                });
+            }
+
+            // function* liGen(length) {
+            //     for (let i = 0; i < length; i++) {
+            //         let li = newFileLi(files[i].name);
+            //         if (yield new Promise(function (resolve, reject) {
+            //             let reader = new FileReader();
+            //             reader.name = files[i].name;
+            //             reader.readAsText(files[i], 'utf-8');
+            //             reader.onload = () => {
+            //                 let string = reader.result;
+            //                 let promise = MF.addFile(reader.name, string);
+            //                 promise.then(() => {
+            //                     resolve(reader.name);
+            //                 });
+            //             }
+            //         })) {
+            //             fileUl.appendChild(li);
+            //         } else {
+            //             validUl.appendChild(li);
+            //         }
+            //     }
+            // }
+            // debugger;
+            // let gen = liGen(files.length);
+            // let item = gen.next();
+            // item.value.then(() => {
+            //     gen.next(MF.isValid(name));
+            //     item = gen.next();
+            // });
+
+            // for (let i = 0; i < files.length; i++) {
+            //     //show file'name in ul
+
+            //     function* liGen(i) {
+            //         let li = newFileLi(files[i].name);
+            //         if (yield new Promise(function (resolve, reject) {
+            //             let reader = new FileReader();
+            //             reader.name = files[i].name;
+            //             // reader.readAsText(files[i], 'gb2312');
+            //             reader.readAsText(files[i], 'utf-8');
+            //             reader.onload = () => {
+            //                 let string = reader.result;
+            //                 let promise = MF.addFile(reader.name, string);
+            //                 promise.then(() => {
+            //                     resolve(reader.name);
+            //                 })
+            //             }
+            //         })) {
+            //             fileUl.appendChild(li);
+            //         } else {
+            //             validUl.appendChild(li);
+            //         }
+            //     }
+            //     let gen = liGen(i);
+            //     gen.next().value.then((name) => {
+            //         gen.next(MF.isValid(name));
+            //     });
+            // }
             inputFile.value = '';
         }
         function newFileLi(fileName) {
@@ -41,7 +112,7 @@
             //FIXME: 谷歌浏览器中，使用js添加的文本节点无法应用font-size
             // li.innerHTML = fileName;
             let img = document.createElement('img');
-            img.src = '/img/txt.jpg';
+            img.src = '/img/txt.png';
             // li.appendChild(img);
             li.innerHTML = fileName;
             li.insertBefore(img, li.childNodes[0]);
@@ -60,14 +131,14 @@
             });
             return li;
         }
-        //TODO: download the txt
+
         let downloadBut = document.getElementById('download');
         let editor = document.getElementById('editor');
         downloadBut.addEventListener('click', function () {
             let text = editor.innerHTML;
-            text = text.replace(/(<span.*?>|<\/span>)/g,'');
-            text = text.replace(/&nbsp;/g,' ');
-            text = text.replace(/<br>/g,'\r\n');
+            text = text.replace(/(<span.*?>|<\/span>)/g, '');
+            text = text.replace(/&nbsp;/g, ' ');
+            text = text.replace(/<br>/g, '\r\n');
             debugger;
             let fileName = prompt('输入保存的文件名：', '各方面都不行的查重工具下载的没用文档');
             if (fileName != null) {

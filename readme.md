@@ -43,3 +43,5 @@ to do or not to do, this is a question
     > 还是从ES6开始学起吧……简单用了Promise
 * js不是单线程吗为什么我在里面加锁？？？
     > 虽然用上了新姿势感觉很开心
+* 加锁后还是有一堆bug
+    > 虽然感觉用async可以比较轻松解决但是我就不！
