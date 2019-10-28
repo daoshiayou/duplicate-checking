@@ -1,12 +1,17 @@
 /**
  * 用于计算两个字符串的最长公共子序列
  * @module LCS_algorithm
- * @returns
  */
 define(function () {
     let arrayA, arrayB, lengthArr, LCSString, percentage;
     let strategy = priorA;
     let repeatA = [], repeatB = [];
+    let blockList = [' ', ',', '.', '\n', '?', '!', ':', ';'];
+
+    /**
+     * 设置被比较的A数组，并重置LCS内部参数
+     * @param {string|Array} a 要设置的数据
+     */
     function setArrayA(a) {
         if (arrayA) {
             arrayA.splice(0, arrayA.length);
@@ -24,6 +29,11 @@ define(function () {
         repeatA.splice(0, repeatA.length);
         repeatB.splice(0, repeatB.length);
     }
+
+    /**
+     * 设置比较的B数组，并重置LCS内部参数
+     * @param {string|Array} b 要设置的数据
+     */
     function setArrayB(b) {
         if (arrayB) {
             arrayB.splice(0, arrayB.length);
@@ -41,8 +51,28 @@ define(function () {
         repeatA.splice(0, repeatA.length);
         repeatB.splice(0, repeatB.length);
     }
+
+    /**
+     * 获取被比较的数组
+     * @return {Array}
+     */
     function getArrayA() { return arrayA; }
+
+    /**
+     * 获取比较的数组
+     * @return {Array}
+     */
     function getArrayB() { return arrayB; }
+
+    function addBlockChar(char) {
+        if (blockList.find(char) === undefined) {
+            blockList.push(char);
+        }
+    }
+
+    /**
+     * 根据LCS内部设置的数组计算其LCS长度数组
+     */
     function calLength() {
         if (!arrayA || !arrayB) {
             throw new Error('TypeError: arrayA or arrayB is undefined');
@@ -68,6 +98,9 @@ define(function () {
             }
         }
     }
+    /**
+     * 根据LCS内部设置的LCS长度数组计算LCS
+     */
     function calLCS() {
         if (!arrayA || !arrayB) {
             throw new Error('TypeError: arrayA or arrayB is undefined');
@@ -85,11 +118,16 @@ define(function () {
         let temp = new Array();
         while (indexA !== 0 && indexB !== 0) {
             if (arrayA[indexA - 1] === arrayB[indexB - 1]) {
-                temp.push(arrayA[indexA - 1]);
-                repeatA.push(indexA - 1);
-                repeatB.push(indexB - 1);
                 indexA--;
                 indexB--;
+                for (let char of blockList) {
+                    if (arrayA[indexA] === char) {
+                        continue;
+                    }
+                }
+                temp.push(arrayA[indexA]);
+                repeatA.push(indexA);
+                repeatB.push(indexB);
             } else {
                 [indexA, indexB] = strategy(indexA, indexB);
             }

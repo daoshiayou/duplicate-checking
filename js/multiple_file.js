@@ -39,13 +39,8 @@ define(['LCS_algorithm'], function (LCS) {
                             //该文件有效且对比文件有效才继续比较
                             if (value.isValid && fileValue.isValid) {
                                 LCS.setArrayB(fileValue.content);
-
-                                //test
-                                console.log(LCS.getLCSString());
-
                                 let repeat = copy(LCS.getRepeatA());
                                 value.record.set(fileKey, repeat);
-
                                 //如果有高重复文件，将这个文件置为无效
                                 if (LCS.getPercentage() > 30) {
                                     value.isValid = false;
@@ -56,7 +51,7 @@ define(['LCS_algorithm'], function (LCS) {
                                 }
                             }
                             resolve();
-                        }, 500);
+                        }, 0);
                     })(fileKey, fileValue);
                 });
                 pArr.push(p);
@@ -70,48 +65,11 @@ define(['LCS_algorithm'], function (LCS) {
         }).then(function () {
             console.timeEnd('addFile ' + name);
             console.log(files);
-            if (files.length === 20) {
-                console.timeEnd('files');
-            }
             document.body.style.cursor = 'default';
             return name;
         });
     }
 
-    //addFile
-    function addFile_bak(name, content) {
-        let value = firstCompare(name, content);
-        files.set(name, value);
-    }
-    function firstCompare(name, content) {
-        LCS.setArrayA(content);
-        let value = {};
-        value.content = content;
-        value.isValid = true;
-        let record = new Map();
-        for (let [fileKey, fileValue] of files) {
-            //跳过高重复文件
-            if (fileValue.isValid === false) {
-                continue;
-            }
-            LCS.setArrayB(fileValue.content);
-            //记录比较结果
-            let repeat = copy(LCS.getRepeatA());
-
-            record.set(fileKey, repeat);
-            //如果高重复，标记并退出循环
-            if (LCS.getPercentage() > 30) {
-                value.isValid = false;
-                break;
-            }
-            //如果不是高重复，在比较文件记录其比较结果
-            repeat = copy(LCS.getRepeatB());
-            fileValue.record.set(name, repeat);
-            fileValue.recordIndexes = undefined;
-        }
-        value.record = record;
-        return value;
-    }
     //继续比较高重复文件
     // function compare(name) {
     //     let value = files.get(name);
@@ -155,7 +113,7 @@ define(['LCS_algorithm'], function (LCS) {
     /** 处理处理字符串的输出：转换换行和添加标记
      *  @method textProcess
      *  @param {string} text 要处理的字符串
-     *  @param {Array} array 需要在周围添加标记的字符位置下标
+     *  @param {num[]} array 需要在周围添加标记的字符位置下标
      *  @param {string} iClass 添加的<i>标记类名（用于后续添加样式
      *  @return {string} 处理好的带标记的字符串
      */
@@ -190,13 +148,11 @@ define(['LCS_algorithm'], function (LCS) {
         let array = file.record.get(compareFile);
         return textProcess(text, array, 'color' + id);
     }
-
-
-
     function clearFiles() {
         files.clear();
         files.length = 0;
     }
+
     //TODO: export Util
     function stringSplice(string, begin, deleteCount, ...item) {
         let array = string.split('');
@@ -210,6 +166,18 @@ define(['LCS_algorithm'], function (LCS) {
         }
         return JSON.parse(JSON.stringify(obj));
     }
+    function co(gen) {
+        return new Promise((resolve, reject) => {
+            (function next(data) {
+                let { value, done } = gen.next(data);
+                if (!done) {
+                    Promise.resolve(value).then((data) => next(data));
+                } else {
+                    resolve(value);
+                }
+            })();
+        });
+    }
 
 
     //public
@@ -219,7 +187,9 @@ define(['LCS_algorithm'], function (LCS) {
         delFile: delFile,
         markAllContent: markAllContent,
         clearFiles: clearFiles,
-        isValid: (name) => files.get(name).isValid
+        isValid: (name) => files.get(name).isValid,
+        //TODO: export Util
+        co: co
     };
     return publicAPI;
 });
