@@ -4,7 +4,7 @@
  *                      4. deal with input files' operation: compare, filter out, mark, package
  */
 console.time('files');
-define(['LCS_algorithm'], function (LCS) {
+define(['./Util', 'LCS_algorithm'], function (Util, LCS) {
     'use strict';
     let files = new Map();
     files.length = 0;
@@ -39,14 +39,14 @@ define(['LCS_algorithm'], function (LCS) {
                             //该文件有效且对比文件有效才继续比较
                             if (value.isValid && fileValue.isValid) {
                                 LCS.setArrayB(fileValue.content);
-                                let repeat = copy(LCS.getRepeatA());
+                                let repeat = LCS.getRepeatA();
                                 value.record.set(fileKey, repeat);
                                 //如果有高重复文件，将这个文件置为无效
                                 if (LCS.getPercentage() > 30) {
                                     value.isValid = false;
                                 } else {
                                     //在比较文件中记录重复下标
-                                    repeat = copy(LCS.getRepeatB());
+                                    repeat = LCS.getRepeatB();
                                     fileValue.record.set(name, repeat);
                                 }
                             }
@@ -119,16 +119,16 @@ define(['LCS_algorithm'], function (LCS) {
      */
     function textProcess(text, array, iClass) {
         let preIndex = array[0];
-        let result = stringSplice(text, preIndex + 1, 0, '</i>');
-        for (let i = 1; i < array.length - 2; i++) {
+        let result = Util.stringSplice(text, preIndex + 1, 0, '</i>');
+        for (let i = 1; i < array.length; i++) {
             //判断和preIndex是否连续
             if (array[i] != preIndex - 1) {
-                result = stringSplice(result, preIndex, 0, '<i class=' + iClass + '>')
-                result = stringSplice(result, array[i] + 1, 0, '</i>');
+                result = Util.stringSplice(result, preIndex, 0, '<i class=' + iClass + '>')
+                result = Util.stringSplice(result, array[i] + 1, 0, '</i>');
             }
             preIndex = array[i];
         }
-        result = stringSplice(result, array[array.length - 1], 0, '<i class=' + iClass + '>');
+        result = Util.stringSplice(result, array[array.length - 1], 0, '<i class=' + iClass + '>');
         result = result.replace(/(\r\n|\r|\n)/g, '<br>');
         return result;
 
@@ -153,33 +153,6 @@ define(['LCS_algorithm'], function (LCS) {
         files.length = 0;
     }
 
-    //TODO: export Util
-    function stringSplice(string, begin, deleteCount, ...item) {
-        let array = string.split('');
-        array.splice(begin, deleteCount, ...item);
-        return array.join('');
-    }
-    function copy(obj) {
-        // debugger;
-        if (obj instanceof Array) {
-            return obj.slice(0, obj.length);
-        }
-        return JSON.parse(JSON.stringify(obj));
-    }
-    function co(gen) {
-        return new Promise((resolve, reject) => {
-            (function next(data) {
-                let { value, done } = gen.next(data);
-                if (!done) {
-                    Promise.resolve(value).then((data) => next(data));
-                } else {
-                    resolve(value);
-                }
-            })();
-        });
-    }
-
-
     //public
 
     let publicAPI = {
@@ -188,8 +161,6 @@ define(['LCS_algorithm'], function (LCS) {
         markAllContent: markAllContent,
         clearFiles: clearFiles,
         isValid: (name) => files.get(name).isValid,
-        //TODO: export Util
-        co: co
     };
     return publicAPI;
 });

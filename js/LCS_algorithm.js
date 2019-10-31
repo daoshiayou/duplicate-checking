@@ -2,11 +2,12 @@
  * 用于计算两个字符串的最长公共子序列
  * @module LCS_algorithm
  */
-define(function () {
+define(['./Util'], function (Util) {
     let arrayA, arrayB, lengthArr, LCSString, percentage;
     let strategy = priorA;
     let repeatA = [], repeatB = [];
     let blockList = [' ', ',', '.', '\n', '?', '!', ':', ';'];
+    // let blockList = [];
 
     /**
      * 设置被比较的A数组，并重置LCS内部参数
@@ -64,10 +65,13 @@ define(function () {
      */
     function getArrayB() { return arrayB; }
 
-    function addBlockChar(char) {
-        if (blockList.find(char) === undefined) {
-            blockList.push(char);
+    function addBlockWord(string) {
+        if (blockList.find(string) === undefined) {
+            blockList.push(string);
         }
+    }
+    function clearBlockWord() {
+        blockList.splice(0, blockList.length);
     }
 
     /**
@@ -120,11 +124,11 @@ define(function () {
             if (arrayA[indexA - 1] === arrayB[indexB - 1]) {
                 indexA--;
                 indexB--;
-                for (let char of blockList) {
-                    if (arrayA[indexA] === char) {
-                        continue;
-                    }
-                }
+                // for (let char of blockList) {
+                //     if (arrayA[indexA] === char) {
+                //         continue;
+                //     }
+                // }
                 temp.push(arrayA[indexA]);
                 repeatA.push(indexA);
                 repeatB.push(indexB);
@@ -157,13 +161,13 @@ define(function () {
         if (repeatA.length === 0) {
             calLCS();
         }
-        return repeatA;
+        return Util.copy(repeatA);
     }
     function getRepeatB() {
         if (repeatB.length === 0) {
             calLCS();
         }
-        return repeatB;
+        return Util.copy(repeatB);
     }
     function priorA(indexA, indexB) {
         return lengthArr[indexA - 1][indexB] < lengthArr[indexA][indexB - 1] ? [indexA, indexB - 1] : [indexA - 1, indexB];
@@ -178,6 +182,24 @@ define(function () {
             strategy = priorA;
         }
     }
+
+    function* wordFilter(string) {
+        for (let word of list) {
+            yield new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let reg = new RegExp(word, 'g');
+                    let result;
+                    while (result = reg.exec(string) !== null) {
+                        let index = result.index;
+                        repeatA.splice(string.length - index - 1, word.length);
+                        repeatB.splice(string.length - index - 1, word.length);
+                    }
+                    string = string.replace(reg, '');
+                    resolve(string);
+                }, 0);
+            });
+        }
+    }
     let publicAPI = {
         setArrayA: setArrayA,
         setArrayB: setArrayB,
@@ -188,7 +210,9 @@ define(function () {
         getPercentage: getPercentage,
         getRepeatA: getRepeatA,
         getRepeatB: getRepeatB,
-        changeStrategy: changeStrategy
+        changeStrategy: changeStrategy,
+        addBlockWord: addBlockWord,
+        clearBlockWord: clearBlockWord,
     }
     return publicAPI;
 });

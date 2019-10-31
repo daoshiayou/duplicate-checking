@@ -5,10 +5,10 @@
 ## 需求
 
 1. LCS算法添加省略词   <——next
+    1. LCS算法异步化    <——working
 2. 标记不同文件的相同内容  
 3. 屈服在自己的简单大脑下决定添加注释
-4. 工具封装
-5. 节流优化
+4. 节流优化
 
 ## 后续
 to do or not to do, this is a question

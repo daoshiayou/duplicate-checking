@@ -3,7 +3,7 @@
             But now, let focus on the logic
 */
 (function () {
-    require(['./multiple_file'], function (MF) {
+    require(['./Util', './multiple_file'], function (Util, MF) {
         let inputFile = document.querySelector('input[type="file"]');
         let inputButton = document.querySelectorAll('.file-input button');
         // files
@@ -19,6 +19,9 @@
         inputFile.onchange = async function () {
             inputButton[0].classList.add('hide');
             inputButton[1].classList.remove('hide');
+            MF.clearFiles();
+            fileUl.innerHTML = '';
+            validUl.innerHTML = '';
             let files = this.files;
             fileDiv.classList.remove('hide');
 
@@ -54,7 +57,7 @@
                         let reader = new FileReader();
                         reader.name = fileList[i].name;
                         // reader.readAsText(fileList[i], 'utf-8');
-                        reader.readAsText(fileList[i], 'gb2312');
+                        reader.readAsText(fileList[i], 'utf-8');
                         reader.onload = () => {
                             let string = reader.result;
                             let promise = MF.addFile(reader.name, string);
@@ -71,7 +74,7 @@
                 inputFile.value = '';
             }
             let gen = liGen(files);
-            MF.co(gen);
+            Util.co(gen);
         }
         function newFileLi(fileName) {
             let li = document.createElement('li');
