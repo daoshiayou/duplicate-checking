@@ -1,23 +1,19 @@
 (function () {
     console.time('load');
-    require(['./LCS_algorithm'], function (LCS) {
+    require(['./Util', './LCS_algorithm'], function (Util, LCS) {
         document.getElementById('comfirm').addEventListener('click', function () {
             console.time('LCS');
-            let a = document.getElementById('textA').innerText.split('');
-            let b = document.getElementById('textB').innerText.split('');
+            let a = document.getElementById('textA').innerHTML.replace(/(<i.*?>|<\/i>)/g, '').replace(/<br>/g, '\r\n');
+            let b = document.getElementById('textB').innerHTML.replace(/(<i.*?>|<\/i>)/g, '').replace(/<br>/g, '\r\n');
             LCS.setArrayA(a);
             LCS.setArrayB(b);
             let result = LCS.getLCSString();
             let repeatA = LCS.getRepeatA();
-            for (index of repeatA) {
-                a[index] = `<i>${a[index]}</i>`;
-            }
+            a = Util.textProcess(a, repeatA);
             let repeatB = LCS.getRepeatB();
-            for (index of repeatB) {
-                b[index] = `<i>${b[index]}</i>`;
-            }
-            document.getElementById('textA').innerHTML = a.join('');
-            document.getElementById('textB').innerHTML = b.join('');
+            b = Util.textProcess(b, repeatB);
+            document.getElementById('textA').innerHTML = a.replace(/(\r\n|\r|\n)/g, '<br>');
+            document.getElementById('textB').innerHTML = b.replace(/(\r\n|\r|\n)/g, '<br>');
             let string = `<h4>重复部分为</h4><p>${result}</p><h4>重复率：<span class="${LCS.getPercentage() < 30 ? 'green' : 'red'}">${LCS.getPercentage()}%</span></h4>`;
             document.getElementById('result').innerHTML = string;
             console.timeEnd('LCS');
@@ -28,14 +24,17 @@
                 this.previousElementSibling.click();
             })
         }
+
         let fa = document.querySelector('.boxA > div.option > input[type=file]');
         let fb = document.querySelector('.boxB > div.option > input[type=file]');
         fa.onchange = function () {
             let file = this.files[0];
             let reader = new FileReader();
-            reader.readAsText(file, 'utf-8');
+            // reader.readAsText(file, 'utf-8');
+            reader.readAsText(file, 'gb2312');
             reader.onload = function () {
                 let string = reader.result;
+                string = string.replace(/(\r\n|\r|\n)/g, '<br>');
                 document.getElementById('textA').innerHTML = string;
                 fa.value = '';
             }
@@ -43,9 +42,11 @@
         fb.onchange = function () {
             let file = this.files[0];
             let reader = new FileReader();
-            reader.readAsText(file, 'utf-8');
+            // reader.readAsText(file, 'utf-8');
+            reader.readAsText(file, 'gb2312');
             reader.onload = function () {
                 let string = reader.result;
+                string = string.replace(/(\r\n|\r|\n)/g, '<br>');
                 document.getElementById('textB').innerHTML = string;
                 fb.value = '';
             }

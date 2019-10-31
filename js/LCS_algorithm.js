@@ -6,23 +6,26 @@ define(['./Util'], function (Util) {
     let arrayA, arrayB, lengthArr, LCSString, percentage;
     let strategy = priorA;
     let repeatA = [], repeatB = [];
-    let blockList = [' ', ',', '.', '\n', '?', '!', ':', ';'];
-    // let blockList = [];
+    // let blockList = [' ', ',', '.', '\n', '?', '!', ':', ';'];
+    let blockList = ['的', 'A.', 'B.', 'C.', 'D.'];
+    let filter = true;
 
     /**
      * 设置被比较的A数组，并重置LCS内部参数
-     * @param {string|Array} a 要设置的数据
+     * @param {string} a 要设置的数据
      */
     function setArrayA(a) {
         if (arrayA) {
             arrayA.splice(0, arrayA.length);
         }
         if (typeof (a) === 'string') {
-            arrayA = a.split('');
-        } else if (a instanceof Array) {
-            arrayA = a;
+            if (filter) {
+                arrayA = wordFilter(a);
+            } else {
+                arrayA = a.split('');
+            }
         } else {
-            throw new Error('TypeError: arrayA must be a string or an array');
+            throw new Error('TypeError: arrayA must be a string');
         }
         lengthArr = undefined;
         LCSString = undefined;
@@ -33,45 +36,26 @@ define(['./Util'], function (Util) {
 
     /**
      * 设置比较的B数组，并重置LCS内部参数
-     * @param {string|Array} b 要设置的数据
+     * @param {string} b 要设置的数据
      */
     function setArrayB(b) {
         if (arrayB) {
             arrayB.splice(0, arrayB.length);
         }
         if (typeof (b) === 'string') {
-            arrayB = b.split('');
-        } else if (b instanceof Array) {
-            arrayB = b;
+            if (filter) {
+                arrayB = wordFilter(b);
+            } else {
+                arrayB = b.split('');
+            }
         } else {
-            throw new Error('TypeError: arrayB must be a string or an array');
+            throw new Error('TypeError: arrayB must be a string');
         }
         lengthArr = undefined;
         LCSString = undefined;
         percentage = undefined;
         repeatA.splice(0, repeatA.length);
         repeatB.splice(0, repeatB.length);
-    }
-
-    /**
-     * 获取被比较的数组
-     * @return {Array}
-     */
-    function getArrayA() { return arrayA; }
-
-    /**
-     * 获取比较的数组
-     * @return {Array}
-     */
-    function getArrayB() { return arrayB; }
-
-    function addBlockWord(string) {
-        if (blockList.find(string) === undefined) {
-            blockList.push(string);
-        }
-    }
-    function clearBlockWord() {
-        blockList.splice(0, blockList.length);
     }
 
     /**
@@ -93,7 +77,7 @@ define(['./Util'], function (Util) {
                 if (i === 0 || j === 0) {
                     lengthArr[i][j] = 0;
                 } else {
-                    if (arrayA[i - 1] === arrayB[j - 1]) {
+                    if (arrayA[i - 1] === arrayB[j - 1] && arrayA[i - 1] !== '{placeholder}') {
                         lengthArr[i][j] = lengthArr[i - 1][j - 1] + 1;
                     } else {
                         lengthArr[i][j] = Math.max(lengthArr[i - 1][j], lengthArr[i][j - 1]);
@@ -121,14 +105,9 @@ define(['./Util'], function (Util) {
         let indexB = arrayB.length;
         let temp = new Array();
         while (indexA !== 0 && indexB !== 0) {
-            if (arrayA[indexA - 1] === arrayB[indexB - 1]) {
+            if (arrayA[indexA - 1] === arrayB[indexB - 1] && arrayA[indexA - 1] !== '{placeholder}') {
                 indexA--;
                 indexB--;
-                // for (let char of blockList) {
-                //     if (arrayA[indexA] === char) {
-                //         continue;
-                //     }
-                // }
                 temp.push(arrayA[indexA]);
                 repeatA.push(indexA);
                 repeatB.push(indexB);
@@ -183,36 +162,65 @@ define(['./Util'], function (Util) {
         }
     }
 
-    function* wordFilter(string) {
-        for (let word of list) {
-            yield new Promise((resolve, reject) => {
-                setTimeout(() => {
-                    let reg = new RegExp(word, 'g');
-                    let result;
-                    while (result = reg.exec(string) !== null) {
-                        let index = result.index;
-                        repeatA.splice(string.length - index - 1, word.length);
-                        repeatB.splice(string.length - index - 1, word.length);
-                    }
-                    string = string.replace(reg, '');
-                    resolve(string);
-                }, 0);
-            });
+
+    /**
+     * 设置过滤模式
+     * @param {boolean} bool 是否开启过滤
+     */
+    function setFilter(bool) {
+        filter = bool;
+    }
+    function addBlockWord(string) {
+        if (blockList.find(string) === undefined) {
+            blockList.push(string);
         }
     }
+    function removeBlockWord(string) {
+        let index = blockList.indexOf(string);
+        if (index !== -1) {
+            blockList.splice(index, 1);
+        }
+    }
+    function clearBlockWord() {
+        blockList.splice(0, blockList.length);
+    }
+    function getBlockWord() {
+        return Util.copy(blockList);
+    }
+    /**
+     * 根据屏蔽词处理字符串,将屏蔽词替换为 {placeholder}
+     * @param {stirng} str 要处理的字符串
+     * @return {Array} 处理完毕的数组
+     */
+    function wordFilter(str) {
+        let arr = str.split('');
+        for (let word of blockList) {
+            let reg = new RegExp(word, 'g');
+            let result;
+            while ((result = reg.exec(str)) !== null) {
+                let index = result.index;
+                for (let i = 0; i < word.length; i++) {
+                    arr[index + i] = '{placeholder}';
+                }
+            }
+        }
+        return arr;
+    }
+
     let publicAPI = {
         setArrayA: setArrayA,
         setArrayB: setArrayB,
-        getArrayA: getArrayA,
-        getArrayB: getArrayB,
         getLCSLength: getLCSLength,
         getLCSString: getLCSString,
         getPercentage: getPercentage,
         getRepeatA: getRepeatA,
         getRepeatB: getRepeatB,
-        changeStrategy: changeStrategy,
+
+        setFilter: setFilter,
         addBlockWord: addBlockWord,
+        removeBlockWord: removeBlockWord,
         clearBlockWord: clearBlockWord,
+        getBlockWord: getBlockWord
     }
     return publicAPI;
 });

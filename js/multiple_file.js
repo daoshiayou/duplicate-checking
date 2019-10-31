@@ -114,10 +114,10 @@ define(['./Util', 'LCS_algorithm'], function (Util, LCS) {
      *  @method textProcess
      *  @param {string} text 要处理的字符串
      *  @param {num[]} array 需要在周围添加标记的字符位置下标
-     *  @param {string} iClass 添加的<i>标记类名（用于后续添加样式
+     *  @param {string} [iClass = ''] 添加的<i>标记类名（用于后续添加样式
      *  @return {string} 处理好的带标记的字符串
      */
-    function textProcess(text, array, iClass) {
+    function textProcess(text, array, iClass = '') {
         let preIndex = array[0];
         let result = Util.stringSplice(text, preIndex + 1, 0, '</i>');
         for (let i = 1; i < array.length; i++) {
@@ -131,8 +131,8 @@ define(['./Util', 'LCS_algorithm'], function (Util, LCS) {
         result = Util.stringSplice(result, array[array.length - 1], 0, '<i class=' + iClass + '>');
         result = result.replace(/(\r\n|\r|\n)/g, '<br>');
         return result;
-
     }
+    
     function markAllContent(name) {
         let file = files.get(name);
         if (!file.recordIndexes) {
