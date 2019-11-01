@@ -4,9 +4,10 @@
 */
 (function () {
     require(['./Util', './multiple_file'], function (Util, MF) {
+
+        //文件上传
         let inputFile = document.querySelector('input[type="file"]');
         let inputButton = document.querySelectorAll('.file-input button');
-        // files
         inputButton.forEach((node) => {
             node.addEventListener('click', function () {
                 inputFile.click();
@@ -22,6 +23,7 @@
             MF.clearFiles();
             fileUl.innerHTML = '';
             validUl.innerHTML = '';
+            fileContent.innerHTML = '';
             let files = this.files;
             fileDiv.classList.remove('hide');
 
@@ -56,8 +58,8 @@
                     if (yield new Promise(function (resolve, reject) {
                         let reader = new FileReader();
                         reader.name = fileList[i].name;
+                        reader.readAsText(fileList[i], 'gb2312');
                         // reader.readAsText(fileList[i], 'utf-8');
-                        reader.readAsText(fileList[i], 'utf-8');
                         reader.onload = () => {
                             let string = reader.result;
                             let promise = MF.addFile(reader.name, string);
@@ -100,6 +102,30 @@
             return li;
         }
 
+        //屏蔽词
+        let blockUl = document.getElementById('block-word');
+        let input = document.querySelector('.blockTag input');
+        document.getElementById('addTag').addEventListener('click', () => {
+            let li = document.createElement('li');
+            let value = input.value;
+            input.value = '';
+            li.innerHTML = value + '<div class="x-icon"></div>';
+            blockUl.append(li);
+            MF.addBlockWord(value);
+        });
+        document.getElementById('clearTag').addEventListener('click', () => {
+            blockUl.innerHTML = '';
+            MF.clearBlockWord();
+        });
+        blockUl.addEventListener('click', (e) => {
+            if (e.target.classList.contains('x-icon')) {
+                let li = e.target.parentNode;
+                MF.removeBlockWord(li.innerText);
+                blockUl.removeChild(li);
+            }
+        });
+
+        //下载
         let downloadBut = document.getElementById('download');
         let editor = document.getElementById('editor');
         downloadBut.addEventListener('click', function () {

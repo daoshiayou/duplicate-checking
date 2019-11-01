@@ -53,36 +53,108 @@ main{
                 &.hide{
                     display: none;
                 }
-            }
-            ul.files,ul.valid-files{
-                width: 68%;
-                height: 100%;
-                display: flex;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-                overflow: auto;
-                li{
-                    width: 25px;
-                    height: 35px;
-                    padding: 5px;;
-                    font-size: 0.5rem;
-                    text-align: center;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    cursor: pointer;
-                    img{
+                ul.files,ul.valid-files{
+                    width: 68%;
+                    height: 100%;
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    overflow: auto;
+                    li{
                         width: 25px;
-                    }
-                    &:hover{
-                        background-color: rgba(112, 161, 255,0.2);
-                    }
-                    &.on{
-                        background-color: rgba(112, 161, 255,0.5);
+                        height: 35px;
+                        padding: 5px;;
+                        font-size: 0.5rem;
+                        text-align: center;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        cursor: pointer;
+                        img{
+                            width: 25px;
+                        }
+                        &:hover{
+                            background-color: rgba(112, 161, 255,0.2);
+                        }
+                        &.on{
+                            background-color: rgba(112, 161, 255,0.5);
+                        }
                     }
                 }
+                ul.valid-files{
+                    width:30%;
+                }
             }
-            ul.valid-files{
-                width:30%;
+        }
+        div.blockTag{
+            background-color: #FFF;
+            margin-top: 10px;
+            padding: 10px;
+            width: auto;
+            height: 40px;
+            font-size: 0.75rem;
+            position: relative;
+            p{
+                position: absolute;
+                top: -0.5rem;
+                left: 0.5rem;
+                color: $dark;
+            }
+            div{
+                height: 100%;
+                display: flex;
+                float: right;
+                margin-left: 10px;
+                align-items: center;
+                input{
+                    width: 100px;
+                }
+                button{
+                    @include greyButton;
+                    width: 2rem;
+                    height: 1.5rem;
+                    margin: 0 5px 0 5px;
+                }
+            }
+            ul{
+                display: flex;
+                flex-wrap: wrap;
+                overflow-y: auto;
+                align-items: center;
+                margin-right: 20px;
+                height: 100%;
+                color: $dark;
+                li{
+                    padding: 5px;
+                    padding-right: 20px;
+                    margin-right: 5px;
+                    margin-bottom: 5px;
+                    border: solid 1px rgba( 153,204,255, 0.5);
+                    background-color: rgba( 153,204,255, 0.1);
+                    position: relative;
+                    div.x-icon{
+                        position: absolute;
+                        top: 11px;
+                        right: 5px;
+                        background-color: rgba( 153,204,255, 0.5);
+                        width: 5px;
+                        height: 5px;
+                        border-radius: 2.5px;
+                        cursor: pointer;
+                    }
+                    &:hover{
+                        background-color: rgba( 153,204,255, 0.5);
+                        color: #000;
+                        div.x-icon{
+                            top: 8px;
+                            right: 3px;
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 6px;
+                            background: url(./img/x.png) no-repeat center center;
+                            background-size: contain;
+                        }
+                    }
+                }
             }
         }
         div.main-content{

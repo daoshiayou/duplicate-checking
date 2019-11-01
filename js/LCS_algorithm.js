@@ -171,7 +171,7 @@ define(['./Util'], function (Util) {
         filter = bool;
     }
     function addBlockWord(string) {
-        if (blockList.find(string) === undefined) {
+        if (blockList.indexOf(string) === -1) {
             blockList.push(string);
         }
     }

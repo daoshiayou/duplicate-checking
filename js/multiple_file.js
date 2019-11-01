@@ -132,7 +132,7 @@ define(['./Util', 'LCS_algorithm'], function (Util, LCS) {
         result = result.replace(/(\r\n|\r|\n)/g, '<br>');
         return result;
     }
-    
+
     function markAllContent(name) {
         let file = files.get(name);
         if (!file.recordIndexes) {
@@ -154,13 +154,15 @@ define(['./Util', 'LCS_algorithm'], function (Util, LCS) {
     }
 
     //public
-
     let publicAPI = {
         addFile: addFile,
         delFile: delFile,
         markAllContent: markAllContent,
         clearFiles: clearFiles,
         isValid: (name) => files.get(name).isValid,
+        addBlockWord: (str) => LCS.addBlockWord(str),
+        removeBlockWord: (str) => LCS.removeBlockWord(str),
+        clearBlockWord: () => LCS.clearBlockWord,
     };
     return publicAPI;
 });
