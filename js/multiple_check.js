@@ -78,6 +78,7 @@
             let gen = liGen(files);
             Util.co(gen);
         }
+        let fileOn;
         function newFileLi(fileName) {
             let li = document.createElement('li');
             //NOTE: 如果后面要做多文件类型再更正，这里先做txt了
@@ -87,17 +88,41 @@
             li.innerHTML = fileName;
             li.insertBefore(img, li.childNodes[0]);
             li.addEventListener('click', function () {
-                //TODO: show detail
-                if (!MF.isValid(this.textContent)) {
+                if (!!fileOn) {
+                    fileOn.classList.remove('on');
+                }
+                li.classList.add('on');
+                fileOn = li;
+                let name = this.textContent;
+                if (!MF.isValid(name)) {
                     // MF.compare(this.textContent);
                 }
-
                 console.time('markAll');
-
-                let string = MF.markAllContent(this.textContent);
+                let string = MF.markAllContent(name);
                 fileContent.innerHTML = string;
-
                 console.timeEnd('markAll');
+                //添加标记
+                let legendUl = document.getElementById('legends');
+                legendUl.innerHTML = '';
+                let legendOn;
+                let record = MF.getRecord(name);
+                let i = 0;
+                for (let [key, value] of record) {
+                    i++;
+                    let li = document.createElement('li');
+                    li.innerHTML = `<div class="rect color${i}"></div>${key}`
+                    let j = i;
+                    li.addEventListener('click', () => {
+                        if (!!legendOn) {
+                            legendOn.classList.remove('on');
+                        }
+                        li.classList.add('on');
+                        legendOn = li;
+                        let str = MF.markCompareContent(name, key, j);
+                        fileContent.innerHTML = str;
+                    });
+                    legendUl.append(li);
+                }
             });
             return li;
         }

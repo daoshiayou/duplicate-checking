@@ -345,7 +345,7 @@ main div.wapper div.main-content div.block {
 main div.wapper div.main-content > div {
   width: 100%;
   margin: 0 auto;
-  height: 600px;
+  height: 620px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   padding: 20px;
@@ -399,13 +399,21 @@ main div.wapper div.main-content ul#legends {
 }
 
 main div.wapper div.main-content ul#legends li {
-  height: 0.75rem;
+  max-height: 0.75rem;
+  line-height: 0.75rem;
+  cursor: pointer;
+  max-width: 100px;
+  text-overflow: ellipsis;
+}
+
+main div.wapper div.main-content ul#legends li:hover, main div.wapper div.main-content ul#legends li.on {
+  background-color: rgba(112, 161, 255, 0.2);
 }
 
 main div.wapper div.main-content ul#legends .rect {
   width: 0.5rem;
   height: 0.5rem;
-  margin-right: 3px;
+  margin: 0.125rem 3px;
   float: left;
 }
 
@@ -444,5 +452,29 @@ main div.wapper div.main-content ul#legends .rect {
 
 .color3 {
   background-color: #ff6b81;
+}
+
+.color4 {
+  background-color: #a4b0be;
+}
+
+.color5 {
+  background-color: #57606f;
+}
+
+.color6 {
+  background-color: #ffa502;
+}
+
+.color7 {
+  background-color: #ff6348;
+}
+
+.color8 {
+  background-color: #ff4757;
+}
+
+.color9 {
+  background-color: #747d8c;
 }
 /*# sourceMappingURL=multiple_check.css.map */
