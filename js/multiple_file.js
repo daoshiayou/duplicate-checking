@@ -42,7 +42,7 @@ define(['./Util', 'LCS_algorithm'], function (Util, LCS) {
                                 let repeat = LCS.getRepeatA();
                                 value.record.set(fileKey, repeat);
                                 //如果有高重复文件，将这个文件置为无效
-                                if (LCS.getPercentage() > 30) {
+                                if (LCS.getPercentage() > 20) {
                                     value.isValid = false;
                                 } else {
                                     //在比较文件中记录重复下标

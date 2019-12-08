@@ -7,7 +7,8 @@ define(['./Util'], function (Util) {
     let strategy = priorA;
     let repeatA = [], repeatB = [];
     // let blockList = [' ', ',', '.', '\n', '?', '!', ':', ';'];
-    let blockList = ['的', 'A.', 'B.', 'C.', 'D.'];
+    // let blockList = ['A.', 'B.', 'C.', 'D.', ' ', '。', ','];
+    let blockList = [' ', '。', ',', '？', '（', '）'];
     let filter = true;
 
     /**
@@ -195,6 +196,7 @@ define(['./Util'], function (Util) {
     function wordFilter(str) {
         let arr = str.split('');
         for (let word of blockList) {
+            word = '[' + word + ']';
             let reg = new RegExp(word, 'g');
             let result;
             while ((result = reg.exec(str)) !== null) {
